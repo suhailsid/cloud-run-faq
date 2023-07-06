@@ -1,5 +1,5 @@
 FROM python:3.9.2
-WORKDIR /Docker-Build/github-trigger/
+WORKDIR /cloud-build/github-trigger/
 COPY . 
 COPY requirements.txt . 
 RUN pip install -r requirements.txt
