@@ -1,0 +1,13 @@
+logsBucket: "gs://cloudbuildtestalok/buld-log"
+options:
+  pool:
+    # Make sure you are using the correct sharedpool
+    name: "projects/vf-de-mozart-dev/locations/europe-west3/workerPools/shared-pool"
+steps:
+
+- name: 'gcr.io/cloud-builders/docker'                                                                        
+  args: ['build','--network=cloudbuild', '-t','europe-west3-docker.pkg.dev/vf-de-mozart-dev/dlake-docker/$_IMAGE_NAME:${TAG_NAME}', 'cloud-build/github-trigger/']
+  
+images: ['europe-west3-docker.pkg.dev/vf-de-mozart-dev/dlake-docker/$_IMAGE_NAME:${TAG_NAME}']
+
+  
