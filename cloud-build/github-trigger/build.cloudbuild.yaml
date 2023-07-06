@@ -1,8 +1,8 @@
 logsBucket: "gs://cloudbuildtestalok/buld-log"
 options:
-  pool:
+ # pool:
     # Make sure you are using the correct sharedpool
-    name: "projects/vf-de-mozart-dev/locations/europe-west3/workerPools/shared-pool"
+   # name: "projects/vf-de-mozart-dev/locations/europe-west3/workerPools/shared-pool"
 steps:
 
 - name: 'gcr.io/cloud-builders/docker'                                                                        
