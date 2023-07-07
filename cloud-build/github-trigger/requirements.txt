@@ -55,4 +55,3 @@ yarg==0.1.9
 google-api-python-client==2.82.0
 tink==1.6.1
 regex==2023.3.23
-xmltodict==0.13.0
