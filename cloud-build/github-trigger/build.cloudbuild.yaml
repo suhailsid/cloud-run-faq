@@ -24,6 +24,5 @@ steps:
         "--service-account=27585950716-compute@developer.gserviceaccount.com",
         "--command=python",
         "--args=main.py",
-        "--platform",
-       ]
+        ]
  
