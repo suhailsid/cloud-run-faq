@@ -1,0 +1,36 @@
+# Following guide from: https://cloud.google.com/build/docs/building/build-python
+ 
+  # Docker Build with tag
+  - id: "Docker build with GCP tag"
+    name: "gcr.io/cloud-builders/docker"
+    args: ['build','--network=cloudbuild', '-t','europe-west3-docker.pkg.dev/vf-de-mozart-dev/dlake-docker/$_IMAGE_NAME:${TAG_NAME}', 'cloud-build/github-trigger/']
+ 
+  # Docker Push
+  - id: "Docker Push"
+    name: "gcr.io/cloud-builders/docker"
+    args: ["push", "europe-west3-docker.pkg.dev/vf-de-mozart-dev/dlake-docker/$_IMAGE_NAME:${TAG_NAME}"]
+ 
+- id: "Cloud Run deploy"
+  name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+  entrypoint: gcloud
+  args:
+      [
+        "run",
+        "jobs",
+        "create",
+        "dlake-build-testing",
+        "--image=europe-west3-docker.pkg.dev/vf-de-mozart-dev/dlake-docker/test_image:testtag",
+        "--region",
+        "europe-west3",
+        "--command=python",
+        "--args=main.py",
+      ]
+
+    
+ 
+options:
+  logging: CLOUD_LOGGING_ONLY
+ 
+# Store images in Google Artifact Registry
+images:
+  - europe-west3-docker.pkg.dev/vf-de-mozart-dev/dlake-docker/$_IMAGE_NAME:${TAG_NAME}
