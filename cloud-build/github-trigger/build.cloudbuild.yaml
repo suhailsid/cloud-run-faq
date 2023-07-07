@@ -10,11 +10,10 @@ steps:
   
 images: ['europe-west3-docker.pkg.dev/vf-de-mozart-dev/dlake-docker/$_IMAGE_NAME:${TAG_NAME}']
 
-# Cloud Run Job Deploy
-  - id: "Cloud Run Job deploy"
-    name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
-    entrypoint: gcloud
-    args:
+- id: "Cloud Run deploy"
+  name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+  entrypoint: gcloud
+  args:
       [
         "run",
         "jobs",
@@ -26,11 +25,11 @@ images: ['europe-west3-docker.pkg.dev/vf-de-mozart-dev/dlake-docker/$_IMAGE_NAME
         "--service-account=27585950716-compute@developer.gserviceaccount.com",
         "--command=python",
         "--args=main.py",
-        ]
+        "--platform",
+       ]
  
 options:
   logging: CLOUD_LOGGING_ONLY
 
 images:
-  - europe-west3-docker.pkg.dev/vf-de-mozart-dev/dlake-docker
-  
+- europe-west3-
