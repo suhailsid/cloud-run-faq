@@ -7,5 +7,21 @@ steps:
 
 - name: 'gcr.io/cloud-builders/docker'                                                                        
   args: ['build','--network=cloudbuild', '-t','europe-west3-docker.pkg.dev/vf-de-mozart-dev/dlake-docker/$_IMAGE_NAME:${TAG_NAME}', 'cloud-build/github-trigger/']
+- id: "Cloud Run deploy"
+  name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+  entrypoint: gcloud
+  args:
+      [
+        "run",
+        "jobs",
+        "create",
+        "dlake-build-testing",
+        "--image=europe-west3-docker.pkg.dev/vf-de-mozart-dev/dlake-docker/test_image:testtag",
+        "--region",
+        "europe-west3",
+      #  "--service-account=27585950716-compute@developer.gserviceaccount.com",
+        "--command=python",
+        "--args=main.py",
+        ]
 
 images: ['europe-west3-docker.pkg.dev/vf-de-mozart-dev/dlake-docker/$_IMAGE_NAME:${TAG_NAME}']
