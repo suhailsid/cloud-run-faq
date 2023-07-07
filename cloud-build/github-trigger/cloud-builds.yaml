@@ -1,5 +1,5 @@
 # Following guide from: https://cloud.google.com/build/docs/building/build-python
-logsBucket: "gs://cloudbuildtestalok/buld-log"
+#logsBucket: "gs://cloudbuildtestalok/buld-log"
 #options:
  # pool:
     # Make sure you are using the correct sharedpool
@@ -14,11 +14,10 @@ steps:
   - id: "Docker Push"
     name: "gcr.io/cloud-builders/docker"
     args: ["push", "europe-west3-docker.pkg.dev/vf-de-mozart-dev/dlake-docker/$_IMAGE_NAME:${TAG_NAME}"]
- 
-- id: "Cloud Run deploy"
-  name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
-  entrypoint: gcloud
-  args:
+  - id: "Cloud Run deploy"
+   name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+   entrypoint: gcloud
+   args:
       [
         "run",
         "jobs",
