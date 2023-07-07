@@ -16,7 +16,6 @@ steps:
     args: ["push", "europe-west3-docker.pkg.dev/vf-de-mozart-dev/dlake-docker/$_IMAGE_NAME:${TAG_NAME}"]
   
   # Cloud Run deploy
-  - id: "Cloud Run deploy"
    name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
    entrypoint: gcloud
    args:
